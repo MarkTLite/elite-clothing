@@ -4,17 +4,17 @@ A full stack React PWA able to execute a complete ecommerce business process in 
 ## Link: 
 https://elite-fashion.netlify.app
 
-## Concepts Applied
-React<br>
+## Key Concepts Applied
+React, React Router,<br>
 SASS<br>
 
 ## Current Features
 Category List<br>
 
 ## Branch Strategy
-Create a new branch for each feature, fix or optimization and add a PR.
+Git pull then Create a new branch for each feature, fix or optimization then add a PR.
 
-## Run
+## To Run
 Used vite instead of create-react-app so
 
     npm install
