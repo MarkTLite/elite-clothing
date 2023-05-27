@@ -1,10 +1,10 @@
 # Elite Clothing
-A scalable full stack React PWA able to execute a complete ecommerce business process for a hypothetical company.
+A full stack React PWA able to execute a complete ecommerce business process in a scalable way for a hypothetical company.
 
-## Link 
+## Link: 
 https://elite-fashion.netlify.app
 
-# Concepts Applied
+## Concepts Applied
 React<br>
 SASS<br>
 
