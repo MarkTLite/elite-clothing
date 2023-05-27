@@ -5,7 +5,7 @@ A full stack React PWA able to execute a complete ecommerce business process in 
 https://elite-fashion.netlify.app
 
 ## Concepts Applied
-React<br>
+React, React Router, <br>
 SASS<br>
 
 ## Current Features

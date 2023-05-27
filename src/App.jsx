@@ -1,5 +1,5 @@
 import './App.scss';
-import CategoryComponent from './components/category-component';
+import CategoryList from './components/category-list/categories-component';
 
 const App = () => {
 
@@ -32,15 +32,7 @@ const App = () => {
   ]
 
   return (
-    <div className="categories-container">
-      {
-        categories.map((category) => {
-          return (
-            <CategoryComponent key={category.id} category={category} />
-          )
-        })
-      }
-    </div>
+    <CategoryList categories={categories}/>
   )
 }
 
