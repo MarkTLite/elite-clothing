@@ -5,8 +5,9 @@ A full stack React PWA able to execute a complete ecommerce business process in 
 https://elite-fashion.netlify.app
 
 ## Key Concepts Applied
-React, React Router,<br>
+React (Router, Hooks, Context)<br>
 SASS<br>
+Firebase (Auth, Firestore)<br>
 
 ## Current Features
 Category List<br>
