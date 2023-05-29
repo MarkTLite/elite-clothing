@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import FormInput from '../form-input/form-input-component';
 import Button from '../button/button-component';
 
@@ -9,6 +8,8 @@ import {
   signInWithGoogleRedirect,
   signInAuthUserWithEmailAndPassword,
 } from '../../utils/firebase/firebase-utils';
+
+import { UserContext } from '../../contexts/user-context';
 
 import './signin-styles.scss';
 
@@ -20,7 +21,7 @@ const defaultFormFields = {
 const SignInForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
-    
+
     // useEffect(async ()=>{
     //     const logInResponse = getRedirectResult();
     //     if(logInResponse){
@@ -33,19 +34,18 @@ const SignInForm = () => {
       };
     
       const signInWithGoogle = async () => {
-        const { user } = await signInWithGooglePopup();
-        await createUserDocumentFromAuth(user);
+        await signInWithGooglePopup();
       };
     
       const handleSubmit = async (event) => {
         event.preventDefault();
     
         try {
-          const response = await signInAuthUserWithEmailAndPassword(
+         await signInAuthUserWithEmailAndPassword(
             email,
             password
           );
-          console.log(response);
+          // console.log(user);
           resetFormFields();
         } catch (error) {
           switch (error.code) {

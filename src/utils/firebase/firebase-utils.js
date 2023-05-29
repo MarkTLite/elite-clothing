@@ -6,6 +6,8 @@ import {
     GoogleAuthProvider,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged,
 } from 'firebase/auth';
 import {
     getFirestore,
@@ -79,3 +81,11 @@ export const signInAuthUserWithEmailAndPassword = async (email, password) => {
 
     return await signInWithEmailAndPassword(auth, email, password);
 };
+
+// For the signout handler
+export const signOutUser = async () => {
+    await signOut(auth);
+}
+
+// Observer, To stop putting setCurrentUser everywhere
+export const onAuthStateChangedListener = (callback) => onAuthStateChanged(auth, callback);
