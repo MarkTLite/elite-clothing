@@ -1,46 +1,19 @@
+import { Route, Routes } from 'react-router-dom';
 import './App.scss';
-import CategoryComponent from './components/category-component';
+import Home from './routes/Home/home-component'
+import Navigation from './routes/NavBar/navigation-component';
+import Shop from './routes/Shop/shop-component';
+import Authentication from './routes/Authentication/auth-component';
 
 const App = () => {
-
-  const categories = [
-    {
-      "id": 1,
-      "title": "Hats",
-      "imageUrl": "https://i.ibb.co/cvpntL1/hats.png"
-    },
-    {
-      "id": 2,
-      "title": "Jackets",
-      "imageUrl": "https://i.ibb.co/px2tCc3/jackets.png"
-    },
-    {
-      "id": 3,
-      "title": "Sneakers",
-      "imageUrl": "https://i.ibb.co/0jqHpnp/sneakers.png"
-    },
-    {
-      "id": 4,
-      "title": "Women's",
-      "imageUrl": "https://i.ibb.co/GCCdy8t/womens.png"
-    },
-    {
-      "id": 5,
-      "title": "Men's",
-      "imageUrl": "https://i.ibb.co/R70vBrQ/men.png"
-    }
-  ]
-
   return (
-    <div className="categories-container">
-      {
-        categories.map((category) => {
-          return (
-            <CategoryComponent key={category.id} category={category} />
-          )
-        })
-      }
-    </div>
+    <Routes>
+      <Route path='/' element={<Navigation />}>
+        <Route index element={<Home/>} />
+        <Route path='shop' element={<Shop />} />
+        <Route path='auth' element={<Authentication />} />
+      </Route>
+    </Routes>
   )
 }
 
