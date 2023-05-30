@@ -11,6 +11,10 @@ Firebase (Auth, Firestore)<br>
 
 ## Current Features
 Category List<br>
+Google SignIn
+Shop
+Cart
+Checkout
 
 ## Branch Strategy
 Git pull then Create a new branch for each feature, fix or optimization then add a PR.
