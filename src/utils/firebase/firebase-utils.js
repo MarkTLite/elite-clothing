@@ -13,7 +13,11 @@ import {
     getFirestore,
     doc,
     getDoc,
+    getDocs,
     setDoc,
+    collection,
+    writeBatch,
+    query
 } from 'firebase/firestore';
 
 const firebaseConfig = {
@@ -33,11 +37,7 @@ googleProvider.setCustomParameters({
     prompt: 'select_account',
 });
 
-export const auth = getAuth();
-export const signInWithGooglePopup = () =>
-    signInWithPopup(auth, googleProvider);
-export const signInWithGoogleRedirect = () =>
-    signInWithRedirect(auth, googleProvider);
+// #################  FIRESTORE UTILS EXPORTS #################################
 
 export const db = getFirestore();
 
@@ -69,6 +69,47 @@ export const createUserDocumentFromAuth = async (
 
     return userDocRef;
 };
+
+// send categories data as a batch
+export const sendCollectionAndDocs = async (collectionId, categoriesData) => {
+    const collectionRef = collection(db, collectionId);
+    const batch = writeBatch(db);
+
+    categoriesData.forEach((category)=>{
+        const docRef = doc(collectionRef, category.title.toLowerCase());
+        batch.set(docRef, category);
+    });
+
+    await batch.commit();
+    console.log('batch upload done')
+}
+
+// Get a map of gategories as a batch
+export const getCollectionAndDocs = async (collectionId ='products') =>{
+    const collectionRef = collection(db, collectionId);
+    const collQuery = query(collectionRef);
+
+    const querySnapshot = await getDocs(collQuery);
+    const categoriesMap = querySnapshot.docs.reduce((final,docSnap)=>{
+        const {title, items} = docSnap.data();
+        final[title.toLowerCase()] = items;
+        return final;
+    }, {});
+    console.log('products batch acquired', categoriesMap);
+    return categoriesMap;
+}
+
+
+
+
+
+
+// #################  AUTH UTILS EXPORTS #################################
+export const auth = getAuth();
+export const signInWithGooglePopup = () =>
+    signInWithPopup(auth, googleProvider);
+export const signInWithGoogleRedirect = () =>
+    signInWithRedirect(auth, googleProvider);
 
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
     if (!email || !password) return;
