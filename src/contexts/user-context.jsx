@@ -12,7 +12,7 @@ export const UserProvider = ({children}) => {
     const [currentUser, setCurrentUser] = useState(null);
     const value = {currentUser, setCurrentUser};
 
-    console.log('provider');
+    // console.log('provider');
     useEffect(()=>{
         // onAuthStateChanged(auth, callback) receives this callback, provides user parameter, returns a function. 
         // So the unsubscribe gets called
@@ -21,7 +21,7 @@ export const UserProvider = ({children}) => {
                 createUserDocumentFromAuth(user);
             }
             setCurrentUser(user);
-            console.log(user);
+            // console.log(user);
         });
         return unsubscribe;
     },[]);

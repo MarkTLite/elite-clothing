@@ -95,7 +95,7 @@ export const getCollectionAndDocs = async (collectionId ='products') =>{
         final[title.toLowerCase()] = items;
         return final;
     }, {});
-    console.log('products batch acquired', categoriesMap);
+    console.log('products batch acquired');
     return categoriesMap;
 }
 
