@@ -2,7 +2,7 @@ import { Fragment, useContext } from "react";
 import { CategoriesContext } from "../../contexts/categories-context";
 import CategoryPreview from "../../components/category-preview/cat-preview-component";
 
-const CategoriesPreviewPage = () => {
+const CategoryPreviewsPage = () => {
   const { categories } = useContext(CategoriesContext);
 
   return (
@@ -17,4 +17,4 @@ const CategoriesPreviewPage = () => {
   )
 }
 
-export default CategoriesPreviewPage;
+export default CategoryPreviewsPage;
