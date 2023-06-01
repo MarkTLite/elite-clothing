@@ -8,16 +8,17 @@ https://elite-fashion.netlify.app
 React (Router, Hooks, Context)<br>
 SASS<br>
 Firebase (Auth, Firestore)<br>
+Styled Components
 
 ## Current Features
-Category List<br>
-Google SignIn
-Shop
-Cart
-Checkout
+Login, Google SignIn, User Register <br>
+Shop (Categories, Products)<br>
+Cart<br>
+Checkout<br>
 
 ## Branch Strategy
-Git pull then Create a new branch for each feature, fix or optimization then add a PR.
+Git pull to get latest, <br>
+Create a new branch for each feature, fix or optimization then add a PR.
 
 ## To Run
 Used vite instead of create-react-app so
