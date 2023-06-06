@@ -3,10 +3,13 @@ import './cat-page-styles.scss'
 import ProductCard from '../../components/product-card/product-card-component';
 import { Fragment, useContext, useEffect, useState } from 'react';
 import { CategoriesContext } from '../../contexts/categories-context';
+import { useSelector } from 'react-redux';
+import { selectCategoriesMap } from '../../store/categories/categories-selector';
 
+// Page whose category content depends on the variable parameter. eg /hats
 const CategoryPage = () => {
     const {category} = useParams();
-    const {categories} = useContext(CategoriesContext);
+    const categories = useSelector(selectCategoriesMap);
     const [products, setProducts] = useState(categories[category]);
 
     useEffect(()=>{

@@ -9,8 +9,6 @@ import {
   signInAuthUserWithEmailAndPassword,
 } from '../../utils/firebase/firebase-utils';
 
-import { UserContext } from '../../contexts/user-context';
-
 import './signin-styles.scss';
 
 const defaultFormFields = {
