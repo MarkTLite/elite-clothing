@@ -75,7 +75,7 @@ export const sendCollectionAndDocs = async (collectionId, categoriesData) => {
     const collectionRef = collection(db, collectionId);
     const batch = writeBatch(db);
 
-    categoriesData.forEach((category)=>{
+    categoriesData.forEach((category) => {
         const docRef = doc(collectionRef, category.title.toLowerCase());
         batch.set(docRef, category);
     });
@@ -85,18 +85,14 @@ export const sendCollectionAndDocs = async (collectionId, categoriesData) => {
 }
 
 // Get a map of gategories as a batch
-export const getCollectionAndDocs = async (collectionId ='products') =>{
+export const getCollectionAndDocs = async (collectionId = 'products') => {
     const collectionRef = collection(db, collectionId);
     const collQuery = query(collectionRef);
 
     const querySnapshot = await getDocs(collQuery);
-    const categoriesMap = querySnapshot.docs.reduce((final,docSnap)=>{
-        const {title, items} = docSnap.data();
-        final[title.toLowerCase()] = items;
-        return final;
-    }, {});
+    const categoriesList = querySnapshot.docs.map((doc) => doc.data());
     console.log('products batch acquired');
-    return categoriesMap;
+    return categoriesList;
 }
 
 

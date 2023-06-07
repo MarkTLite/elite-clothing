@@ -7,7 +7,6 @@ const USER_INITIAL_STATE = {
 // another way of [state, setState] but reduce on calling many setters
 export const userReducer = (state = USER_INITIAL_STATE, action = {}) => {
     const {type, payload} = action;
-    console.log(action)
     switch(type){
         case USER_ACTION_TYPES.SET_USER:
             return {...state, currentUser: payload}

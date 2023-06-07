@@ -2,7 +2,6 @@ import { Fragment, useContext } from 'react'
 import { Outlet, Link } from "react-router-dom";
 
 import { ReactComponent as EliteLogo } from '../../assets/elite.svg';
-import { CartContext } from '../../contexts/cart-context';
 import { signOutUser } from '../../utils/firebase/firebase-utils';
 import CartIcon from '../../components/cart-icon/cart-icon-component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown-component';
@@ -10,10 +9,11 @@ import CartDropdown from '../../components/cart-dropdown/cart-dropdown-component
 import * as S from './nav-styles' //Styled Components
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../store/user/user-selector';
+import { selectCartToggle } from '../../store/cart/cart-selector';
 
 const Navigation = () => {
     const currentUser = useSelector(selectCurrentUser);
-    const {isCartOpen} = useContext(CartContext);
+    const isCartOpen = useSelector(selectCartToggle);
 
     const signOutHandler = async () => {
         await signOutUser();

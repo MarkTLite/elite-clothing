@@ -7,12 +7,11 @@ import Authentication from './routes/Authentication/auth-component';
 import CheckoutPage from './routes/Checkout/checkout-component';
 import { setCurrentUser } from './store/user/user-actions';
 import { createUserDocumentFromAuth, onAuthStateChangedListener } from './utils/firebase/firebase-utils';
-import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 const App = () => {
-  const dispatch = useDispatch()
-
+  const dispatch = useDispatch();
   useEffect(()=>{
     // onAuthStateChanged(auth, callback) receives this callback, provides user parameter, returns a function. 
     // So the unsubscribe gets called
