@@ -6,6 +6,11 @@ despite the reducer not changing
 */
 const selectCategoryReducer = (state) => state.categories;
 
+export const selectCategoriesLoading = createSelector(
+  [selectCategoryReducer],
+  (newCatReducer) => newCatReducer.isLoading
+) 
+
 //Is it the same category reducer object in the root reducer?
 export const selectCategories = createSelector(
   [selectCategoryReducer],
