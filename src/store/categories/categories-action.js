@@ -13,7 +13,7 @@ export const setFetchCategoriesSuccess = (categoriesList) =>
 
 export const setFetchCategoriesAsync = () => {
   return async (dispatch) => {
-    dispatch(setFetchCategoriesStart);
+    dispatch(setFetchCategoriesStart());
     try {
       const categoriesList = await getCollectionAndDocs("products");
       dispatch(setFetchCategoriesSuccess(categoriesList));
