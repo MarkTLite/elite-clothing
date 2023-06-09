@@ -6,9 +6,10 @@ https://elite-fashion.netlify.app
 
 ## Key Concepts Applied
 React (Router, Hooks, Context)<br>
+Redux (redux, thunk, saga)<br>
 SASS<br>
 Firebase (Auth, Firestore)<br>
-Styled Components
+Styled Components <br>
 
 ## Current Features
 Login, Google SignIn, User Register <br>
