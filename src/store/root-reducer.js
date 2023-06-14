@@ -8,3 +8,5 @@ export const rootReducer = combineReducers({
   categories: categoryReducer,
   cart: cartReducer,
 });
+
+// For init
