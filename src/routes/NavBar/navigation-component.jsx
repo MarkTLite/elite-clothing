@@ -7,17 +7,17 @@ import CartIcon from '../../components/cart-icon/cart-icon-component';
 import CartDropdown from '../../components/cart-dropdown/cart-dropdown-component';
 
 import * as S from './nav-styles' //Styled Components
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../store/user/user-selector';
 import { selectCartToggle } from '../../store/cart/cart-selector';
+import { setSignOutStart } from '../../store/user/user-actions';
 
 const Navigation = () => {
+    const dispatch = useDispatch();
     const currentUser = useSelector(selectCurrentUser);
     const isCartOpen = useSelector(selectCartToggle);
 
-    const signOutHandler = async () => {
-        await signOutUser();
-    }
+    const signOutHandler = () => dispatch(setSignOutStart());
     return (
         <Fragment>
             <S.Navigation>

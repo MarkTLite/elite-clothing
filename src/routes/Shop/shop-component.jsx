@@ -3,14 +3,14 @@ import "./shop-styles.scss";
 import CategoryPreviewsPage from "../CategoryPreviewsPage/categories-page-component";
 import CategoryPage from "../CategoryPage/cat-page-component";
 import { useEffect } from "react";
-import { setFetchCategoriesAsync } from "../../store/categories/categories-action";
 import { useDispatch } from "react-redux";
+import { setFetchCategoriesStart } from "../../store/categories/categories-action";
 
 const Shop = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setFetchCategoriesAsync());
+    dispatch(setFetchCategoriesStart());
   }, []);
 
   return (

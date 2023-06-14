@@ -3,12 +3,10 @@ import { CATEGORY_ACTION_TYPES } from "./categories-types";
 import { getCollectionAndDocs } from "../../utils/firebase/firebase-utils";
 import {
   setFetchCategoriesFail,
-  setFetchCategoriesStart,
   setFetchCategoriesSuccess,
 } from "./categories-action";
 
 export function* fetchCategoriesAsync() {
-  put(setFetchCategoriesStart());
   try {
     const categoriesList = yield call(getCollectionAndDocs, "products");
     yield put(setFetchCategoriesSuccess(categoriesList));
@@ -22,6 +20,6 @@ export function* onFetchCategories() {
     fetchCategoriesAsync
   );
 }
-export function* categoriesSaga() {
+export function* categoriesSagas() {
   yield all([call(onFetchCategories)]);
 }
