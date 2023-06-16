@@ -1,6 +1,6 @@
 import * as S from "./cart-icon-styles"; //S - Styled Components
 import { useDispatch, useSelector } from "react-redux";
-import { setIsCartOpen } from "../../store/cart/cart-actions";
+import { setIsCartOpen } from "../../store/cart/cart-reducer";
 import {
   selectCartToggle,
   selectCartCount,

@@ -5,7 +5,7 @@ import Navigation from './routes/NavBar/navigation-component';
 import Shop from './routes/Shop/shop-component';
 import Authentication from './routes/Authentication/auth-component';
 import CheckoutPage from './routes/Checkout/checkout-component';
-import { setCurrentUser } from './store/user/user-actions';
+import { setCurrentUser } from './store/user/user-reducer';
 import { createUserDocumentFromAuth, onAuthStateChangedListener } from './utils/firebase/firebase-utils';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -20,7 +20,6 @@ const App = () => {
            createUserDocumentFromAuth(user);
         }
         dispatch(setCurrentUser(user));
-        console.log(user);
     });
     return unsubscribe;
 },[dispatch]);

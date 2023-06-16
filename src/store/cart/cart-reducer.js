@@ -1,4 +1,4 @@
-import { CART_ACTION_TYPES } from "./cart-types";
+import { createSlice } from "@reduxjs/toolkit";
 
 const CART_INIT_STATE = {
   isCartOpen: false,
@@ -7,17 +7,71 @@ const CART_INIT_STATE = {
   totalPrice: 0,
 };
 
-export const cartReducer = (state = CART_INIT_STATE, action = {}) => {
-  const { type, payload } = action;
+const addCartItem = (cartItems, productToAdd) => {
+  // check for existing item. if there, add but with qty increased
+  const existingCartItem = cartItems.find(
+    (cartItem) => cartItem.id === productToAdd.id
+  );
 
-  switch (type) {
-    case CART_ACTION_TYPES.SET_CART_ITEMS:
-      return { ...state, cartItems: payload };
-
-    case CART_ACTION_TYPES.TOGGLE_IS_CART_OPEN:
-      return { ...state, isCartOpen: payload };
-
-    default:
-      return state;
+  if (existingCartItem) {
+    return cartItems.map((cartItem) =>
+      cartItem.id === productToAdd.id
+        ? { ...cartItem, quantity: cartItem.quantity + 1 }
+        : cartItem
+    );
   }
+
+  return [...cartItems, { ...productToAdd, quantity: 1 }];
 };
+
+const removeCartItem = (cartItems, cartItemToRemove) => {
+  // If cart item exists and number > 1, reduce number,
+  const existingCartItem = cartItems.find(
+    (cartItem) => cartItem.id === cartItemToRemove.id
+  );
+  if (existingCartItem.quantity > 1) {
+    return cartItems.map((cartItem) =>
+      cartItem.id === existingCartItem.id
+        ? { ...cartItem, quantity: cartItem.quantity - 1 }
+        : cartItem
+    );
+  }
+  // if == 1 remove cartItem
+  return cartItems.filter((cartItem) => cartItem.id !== existingCartItem.id);
+};
+
+const clearCartItem = (cartItems, cartItemToRemove) => {
+  // filter out the item
+  return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id);
+};
+
+const cartSlice = createSlice({
+  name: "cart",
+  initialState: CART_INIT_STATE,
+  reducers: {
+    addItemToCart: (state, action) => {
+      const newCartItems = addCartItem(state.cartItems, action.payload);
+      state.cartItems = newCartItems;
+    },
+    removeItemFromCart(state, action) {
+      const newCartItems = removeCartItem(state.cartItems, action.payload);
+      state.cartItems = newCartItems;
+    },
+    clearItemFromCart(state, action) {
+      const newCartItems = clearCartItem(state.cartItems, action.payload);
+      state.cartItems = newCartItems;
+    },
+    setIsCartOpen(state, action) {
+      state.isCartOpen = action.payload;
+    },
+  },
+});
+
+export const {
+  addItemToCart,
+  removeItemFromCart,
+  clearItemFromCart,
+  setIsCartOpen,
+} = cartSlice.actions;
+
+export const cartReducer = cartSlice.reducer;
