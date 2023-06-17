@@ -4,28 +4,29 @@ import * as S from "./payment-from-styles";
 import { useSelector } from "react-redux";
 import { selectCartTotal } from "../../store/cart/cart-selector";
 import { selectCurrentUser } from "../../store/user/user-selector";
+import { useState } from "react";
 
 const PaymentForm = () => {
   const stripe = useStripe();
   const element = useElements();
   const amount = useSelector(selectCartTotal);
   const currentUser = useSelector(selectCurrentUser);
+  const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
   const payNowHandler = async (e) => {
     e.preventDefault();
 
     if (!element || !stripe) return;
-
+    console.log('clicked')
+    setIsProcessingPayment(true);
     const response = await fetch("/.netlify/functions/create-payment-intent", {
-      'method': "post",
-      'headers': {
+      method: "post",
+      headers: {
         "Content-type": "application/json",
       },
-      'body': JSON.stringify({ amount: amount * 100 }),
+      body: JSON.stringify({ amount: amount * 100 }),
     }).then((res) => res.json());
-    console.log(response);
     const { client_secret } = response;
-    console.log(currentUser)
     const paymentResult = await stripe.confirmCardPayment(client_secret, {
       payment_method: {
         card: element.getElement(CardElement),
@@ -34,8 +35,10 @@ const PaymentForm = () => {
         },
       },
     });
+
+    setIsProcessingPayment(false);
     if (paymentResult.error) {
-        console.log('error')
+      console.log("error");
       alert(`Payment failed: error: ${paymentResult.error}`);
     } else {
       if (paymentResult.paymentIntent.status === "succeeded") {
@@ -49,7 +52,12 @@ const PaymentForm = () => {
       <S.FormContainer onSubmit={payNowHandler}>
         <h2>Credit Card Payment</h2>
         <CardElement />
-        <Button buttonType={BUTTON_TYPE_CLASSES.inverted}>Pay Now</Button>
+        <S.PaymentButton
+          buttonType={BUTTON_TYPE_CLASSES.inverted}
+          isLoading={isProcessingPayment}
+        >
+        PAY NOW
+        </S.PaymentButton>
       </S.FormContainer>
     </S.PaymentFormContainer>
   );

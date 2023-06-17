@@ -1,6 +1,5 @@
 require("dotenv").config();
 const secret_key = process.env.VITE_STRIPE_SECRET_KEY;
-console.log(secret_key)
 const stripe = require("stripe")(secret_key);
 
 exports.handler = async (event) => {

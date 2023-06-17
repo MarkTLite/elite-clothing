@@ -8,7 +8,7 @@ var require_package = __commonJS({
   "node_modules/dotenv/package.json"(exports2, module2) {
     module2.exports = {
       name: "dotenv",
-      version: "16.1.4",
+      version: "16.3.0",
       description: "Loads environment variables from .env file",
       main: "lib/main.js",
       types: "lib/main.d.ts",
@@ -108,7 +108,7 @@ var require_main = __commonJS({
       if (!result.parsed) {
         throw new Error(`MISSING_DATA: Cannot parse ${vaultPath} for an unknown reason`);
       }
-      const keys = _dotenvKey().split(",");
+      const keys = _dotenvKey(options).split(",");
       const length = keys.length;
       let decrypted;
       for (let i = 0; i < length; i++) {
@@ -134,7 +134,10 @@ var require_main = __commonJS({
     function _debug(message) {
       console.log(`[dotenv@${version}][DEBUG] ${message}`);
     }
-    function _dotenvKey() {
+    function _dotenvKey(options) {
+      if (options && options.DOTENV_KEY && options.DOTENV_KEY.length > 0) {
+        return options.DOTENV_KEY;
+      }
       if (process.env.DOTENV_KEY && process.env.DOTENV_KEY.length > 0) {
         return process.env.DOTENV_KEY;
       }
@@ -178,7 +181,11 @@ var require_main = __commonJS({
     function _configVault(options) {
       _log("Loading env from encrypted .env.vault");
       const parsed = DotenvModule._parseVault(options);
-      DotenvModule.populate(process.env, parsed, options);
+      let processEnv = process.env;
+      if (options && options.processEnv != null) {
+        processEnv = options.processEnv;
+      }
+      DotenvModule.populate(processEnv, parsed, options);
       return { parsed };
     }
     function configDotenv(options) {
@@ -195,7 +202,11 @@ var require_main = __commonJS({
       }
       try {
         const parsed = DotenvModule.parse(fs.readFileSync(dotenvPath, { encoding }));
-        DotenvModule.populate(process.env, parsed, options);
+        let processEnv = process.env;
+        if (options && options.processEnv != null) {
+          processEnv = options.processEnv;
+        }
+        DotenvModule.populate(processEnv, parsed, options);
         return { parsed };
       } catch (e) {
         if (debug) {
@@ -206,7 +217,7 @@ var require_main = __commonJS({
     }
     function config(options) {
       const vaultPath = _vaultPath(options);
-      if (_dotenvKey().length === 0) {
+      if (_dotenvKey(options).length === 0) {
         return DotenvModule.configDotenv(options);
       }
       if (!fs.existsSync(vaultPath)) {
@@ -7235,7 +7246,6 @@ var require_stripe_cjs_node = __commonJS({
 // netlify/functions/create-payment-intent.js
 require_main().config();
 var secret_key = process.env.VITE_STRIPE_SECRET_KEY;
-console.log(secret_key);
 var stripe = require_stripe_cjs_node()(secret_key);
 exports.handler = async (event) => {
   try {
